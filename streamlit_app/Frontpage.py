@@ -7,12 +7,12 @@ st.set_page_config(
 )
 
 st.title("Through the Label 🧴✨")
-st.caption("Make data driven skincare choices :D")
+st.caption("Make data-driven skincare choices :D")
 
 left, right = st.columns([2, 1])
 with left:
     st.subheader("Your customized skincare bestie 💧!")
-    st.write("Understand the ingredients that you put in your skin and perfect matching products for your skin by making smarter choices")
+    st.write("Understand the ingredients that you put in your skin and perfect matching products for your skin by making smarter choices.")
 with right:
     st.image("https://via.placeholder.com/300") #IMPORTANT JUST PLACEHOLDER NEED TO CHANGE!
 
