@@ -3,22 +3,15 @@ import ast
 
 
 def load_products(path: str = "data/products.csv"):
-    """
-    Load product catalog from CSV.
-    Expects columns:
-    - product_name
-    - product_url
-    - product_type
-    - clean_ingreds  (stringified list)
-    """
+
     df = pd.read_csv(path)
 
-    # Convert clean_ingreds into real Python lists
+
     df["clean_ingreds"] = df["clean_ingreds"].apply(
         lambda x: ast.literal_eval(x) if isinstance(x, str) else []
     )
 
-    # Normalize ingredient text
+
     df["clean_ingreds"] = df["clean_ingreds"].apply(
         lambda lst: [ing.strip().lower() for ing in lst]
     )
@@ -26,16 +19,12 @@ def load_products(path: str = "data/products.csv"):
     return df
 
 
-# Load once globally
+
 PRODUCTS_DF = load_products()
 
 
 def recommend_products(ingredient_list, top_k: int = 3):
-    """
-    Recommend products based on ingredient overlap.
-    Uses simple Jaccard similarity:
-        similarity = intersect / union
-    """
+
     user_set = set([i.strip().lower() for i in ingredient_list if i.strip()])
 
     scores = []
@@ -54,6 +43,6 @@ def recommend_products(ingredient_list, top_k: int = 3):
 
     PRODUCTS_DF["similarity"] = scores
 
-    # Sort and return best matches
+
     recs = PRODUCTS_DF.sort_values(by="similarity", ascending=False).head(top_k).copy()
     return recs

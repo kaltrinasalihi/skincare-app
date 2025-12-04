@@ -19,13 +19,13 @@ if st.button("Analyze ingredients"):
     if not ingredient_text.strip():
         st.warning("Please paste an ingredient list first.")
     else:
-        # 1) Zutaten parsen
+
         ingredients = parse_ingredient_list(ingredient_text)
 
         st.write("### Parsed ingredients")
         st.write(ingredients)
 
-        # 2) Infos zu jedem Ingredient anzeigen
+
         st.write("### Ingredient details")
         for ing in ingredients:
             info = get_ingredient_info(ing)
@@ -54,7 +54,7 @@ if st.button("Analyze ingredients"):
                     if info["url"]:
                         st.markdown(f"[More info]({info['url']})")
 
-        # 3) Empfehlungen auf Basis der Ingredients
+
         if ingredients:
             st.write("---")
             st.write("### Recommended products based on these ingredients")
