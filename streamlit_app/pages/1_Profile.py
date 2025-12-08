@@ -106,7 +106,12 @@ if st.session_state.get("profile"):
     # Recomendações personalizadas baseadas no perfil
     st.divider()
     st.markdown("### 🎯 Personalized Product Recommendations")
-    st.caption("Based on your skin profile and concerns")
+    st.markdown("""
+        Based on your skin profile and concerns, we calculate a match score for each product. 
+        Each product receives **2 points** for every concern you selected that matches keywords in the product name or type, 
+        and **1 extra point** if your skin type is mentioned in the product name. 
+        Products with higher scores are shown first for better personalization.
+    """)
     
     try:
         # Carregar produtos

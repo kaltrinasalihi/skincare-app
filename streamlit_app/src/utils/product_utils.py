@@ -5,7 +5,7 @@ import streamlit as st
 
 @st.cache_data(ttl=3600)
 def load_products(path: str = "data/products.csv"):
-    """Carrega dados de produtos com cache para melhor performance."""
+    """Loads product data with cache for better performance."""
     try:
         df = pd.read_csv(path)
         
@@ -28,7 +28,7 @@ def load_products(path: str = "data/products.csv"):
 
 
 def recommend_products(ingredient_list: list, top_k: int = 3) -> pd.DataFrame:
-    """Recomenda produtos baseado em similaridade de ingredientes (Jaccard)."""
+    """Recommends products based on ingredient similarity (Jaccard)."""
     if not ingredient_list:
         return pd.DataFrame()
     

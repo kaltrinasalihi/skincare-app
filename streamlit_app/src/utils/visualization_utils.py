@@ -1,5 +1,5 @@
 """
-Utilitários para criação de visualizações e gráficos
+Utilities for creating visualizations and charts
 """
 
 import pandas as pd
@@ -10,7 +10,7 @@ import streamlit as st
 
 
 def create_skin_type_distribution(df: pd.DataFrame, column: str = 'skin_type') -> go.Figure:
-    """Cria gráfico de distribuição de tipos de pele."""
+    """Creates a chart for skin type distribution."""
     if df.empty or column not in df.columns:
         return None
     
@@ -19,7 +19,7 @@ def create_skin_type_distribution(df: pd.DataFrame, column: str = 'skin_type') -
     fig = px.pie(
         values=counts.values,
         names=counts.index,
-        title="Distribuição de Tipos de Pele",
+        title="Skin Type Distribution",
         hole=0.4,
         color_discrete_sequence=px.colors.qualitative.Pastel
     )
@@ -31,7 +31,7 @@ def create_skin_type_distribution(df: pd.DataFrame, column: str = 'skin_type') -
 
 
 def create_product_type_chart(df: pd.DataFrame) -> go.Figure:
-    """Cria gráfico de barras para tipos de produtos."""
+    """Creates a bar chart for product types."""
     if df.empty or 'product_type' not in df.columns:
         return None
     
@@ -41,8 +41,8 @@ def create_product_type_chart(df: pd.DataFrame) -> go.Figure:
         x=counts.values,
         y=counts.index,
         orientation='h',
-        title="Top 10 Tipos de Produtos",
-        labels={'x': 'Quantidade', 'y': 'Tipo de Produto'},
+        title="Top 10 Product Types",
+        labels={'x': 'Quantity', 'y': 'Product Type'},
         color=counts.values,
         color_continuous_scale='Blues'
     )
@@ -53,7 +53,7 @@ def create_product_type_chart(df: pd.DataFrame) -> go.Figure:
 
 
 def create_brand_distribution(df: pd.DataFrame, top_n: int = 15) -> go.Figure:
-    """Cria gráfico de distribuição de marcas."""
+    """Creates a chart for brand distribution."""
     if df.empty or 'brand_name' not in df.columns:
         return None
     
@@ -62,8 +62,8 @@ def create_brand_distribution(df: pd.DataFrame, top_n: int = 15) -> go.Figure:
     fig = px.bar(
         x=counts.index,
         y=counts.values,
-        title=f"Top {top_n} Marcas",
-        labels={'x': 'Marca', 'y': 'Número de Produtos'},
+        title=f"Top {top_n} Brands",
+        labels={'x': 'Brand', 'y': 'Number of Products'},
         color=counts.values,
         color_continuous_scale='Viridis'
     )
@@ -78,7 +78,7 @@ def create_brand_distribution(df: pd.DataFrame, top_n: int = 15) -> go.Figure:
 
 
 def create_ingredient_frequency_chart(ingredients_list: list, top_n: int = 20) -> go.Figure:
-    """Cria gráfico de ingredientes mais comuns."""
+    """Creates a chart for most common ingredients."""
     if not ingredients_list:
         return None
     
@@ -98,8 +98,8 @@ def create_ingredient_frequency_chart(ingredients_list: list, top_n: int = 20) -
         x=ingredient_counts.values,
         y=ingredient_counts.index,
         orientation='h',
-        title=f"Top {top_n} Ingredientes Mais Comuns",
-        labels={'x': 'Frequência', 'y': 'Ingrediente'},
+        title=f"Top {top_n} Most Common Ingredients",
+        labels={'x': 'Frequency', 'y': 'Ingredient'},
         color=ingredient_counts.values,
         color_continuous_scale='Teal'
     )
@@ -110,7 +110,7 @@ def create_ingredient_frequency_chart(ingredients_list: list, top_n: int = 20) -
 
 
 def create_concern_distribution(concerns_data: list) -> go.Figure:
-    """Cria gráfico de preocupações de pele mais comuns."""
+    """Creates a chart for most common skin concerns."""
     if not concerns_data:
         return None
     
@@ -130,8 +130,8 @@ def create_concern_distribution(concerns_data: list) -> go.Figure:
     fig = px.bar(
         x=concern_counts.index,
         y=concern_counts.values,
-        title="Preocupações de Pele Mais Comuns",
-        labels={'x': 'Preocupação', 'y': 'Frequência'},
+        title="Most Common Skin Concerns",
+        labels={'x': 'Concern', 'y': 'Frequency'},
         color=concern_counts.values,
         color_continuous_scale='Reds'
     )
@@ -142,7 +142,7 @@ def create_concern_distribution(concerns_data: list) -> go.Figure:
 
 
 def create_ingredient_category_pie(categories: dict) -> go.Figure:
-    """Cria gráfico de pizza para categorias de ingredientes."""
+    """Creates a pie chart for ingredient categories."""
     if not categories:
         return None
     
@@ -153,7 +153,7 @@ def create_ingredient_category_pie(categories: dict) -> go.Figure:
     )])
     
     fig.update_layout(
-        title="Categorias de Ingredientes",
+        title="Ingredient Categories",
         height=400
     )
     
@@ -161,7 +161,7 @@ def create_ingredient_category_pie(categories: dict) -> go.Figure:
 
 
 def create_similarity_comparison(products_df: pd.DataFrame) -> go.Figure:
-    """Cria gráfico de comparação de similaridade de produtos."""
+    """Creates a chart for product similarity comparison."""
     if products_df.empty or 'similarity' not in products_df.columns:
         return None
     
@@ -169,8 +169,8 @@ def create_similarity_comparison(products_df: pd.DataFrame) -> go.Figure:
         products_df,
         x='product_name',
         y='similarity',
-        title="Comparação de Similaridade de Produtos",
-        labels={'product_name': 'Produto', 'similarity': 'Similaridade (%)'},
+        title="Product Similarity Comparison",
+        labels={'product_name': 'Product', 'similarity': 'Similarity (%)'},
         color='similarity',
         color_continuous_scale='Greens'
     )
@@ -185,7 +185,7 @@ def create_similarity_comparison(products_df: pd.DataFrame) -> go.Figure:
 
 
 def create_price_distribution(df: pd.DataFrame, price_column: str = 'price') -> go.Figure:
-    """Cria histograma de distribuição de preços."""
+    """Creates a histogram for price distribution."""
     if df.empty or price_column not in df.columns:
         return None
     
@@ -198,8 +198,8 @@ def create_price_distribution(df: pd.DataFrame, price_column: str = 'price') -> 
     fig = px.histogram(
         prices,
         nbins=30,
-        title="Distribuição de Preços",
-        labels={'value': 'Preço (CHF)', 'count': 'Frequência'},
+        title="Price Distribution",
+        labels={'value': 'Price (CHF)', 'count': 'Frequency'},
         color_discrete_sequence=['#3b82f6']
     )
     
@@ -209,35 +209,35 @@ def create_price_distribution(df: pd.DataFrame, price_column: str = 'price') -> 
 
 
 def create_summary_metrics_table(data: dict) -> pd.DataFrame:
-    """Cria tabela de métricas resumidas."""
-    df = pd.DataFrame(list(data.items()), columns=['Métrica', 'Valor'])
+    """Creates a summary metrics table."""
+    df = pd.DataFrame(list(data.items()), columns=['Metric', 'Value'])
     return df
 
 
 def create_ingredient_comparison_table(ingredients: list, info_list: list) -> pd.DataFrame:
-    """Cria tabela comparativa de ingredientes."""
+    """Creates a comparative table of ingredients."""
     if not ingredients or not info_list:
         return pd.DataFrame()
     
     data = {
-        'Ingrediente': [],
-        'Categoria': [],
-        'Benefício Principal': [],
-        'Bom Para': []
+        'Ingredient': [],
+        'Category': [],
+        'Main Benefit': [],
+        'Good For': []
     }
     
     for ing, info in zip(ingredients, info_list):
         if info:
-            data['Ingrediente'].append(info.get('name', ing))
-            data['Categoria'].append(info.get('what_is_it', 'N/A')[:50] + '...' if info.get('what_is_it') else 'N/A')
-            data['Benefício Principal'].append(info.get('what_does_it_do', 'N/A')[:50] + '...' if info.get('what_does_it_do') else 'N/A')
-            data['Bom Para'].append(info.get('who_is_it_good_for', 'N/A')[:50] + '...' if info.get('who_is_it_good_for') else 'N/A')
+            data['Ingredient'].append(info.get('name', ing))
+            data['Category'].append(info.get('what_is_it', 'N/A')[:50] + '...' if info.get('what_is_it') else 'N/A')
+            data['Main Benefit'].append(info.get('what_does_it_do', 'N/A')[:50] + '...' if info.get('what_does_it_do') else 'N/A')
+            data['Good For'].append(info.get('who_is_it_good_for', 'N/A')[:50] + '...' if info.get('who_is_it_good_for') else 'N/A')
     
     return pd.DataFrame(data)
 
 
 def create_gauge_chart(value: float, title: str, max_value: float = 100) -> go.Figure:
-    """Cria gráfico de gauge (medidor)."""
+    """Creates a gauge (meter) chart."""
     fig = go.Figure(go.Indicator(
         mode="gauge+number+delta",
         value=value,

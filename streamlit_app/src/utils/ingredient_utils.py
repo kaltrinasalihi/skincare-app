@@ -5,7 +5,7 @@ import streamlit as st
 
 @st.cache_data(ttl=3600)
 def load_ingredient_data(path: str = "data/ingredients_dict.csv"):
-    """Carrega dados de ingredientes com cache para melhor performance."""
+    """Loads ingredient data with cache for better performance."""
     try:
         df = pd.read_csv(path)
         # Normalize column names
@@ -22,7 +22,7 @@ def load_ingredient_data(path: str = "data/ingredients_dict.csv"):
 
 
 def parse_ingredient_list(text: str) -> list:
-    """Parse uma lista de ingredientes separada por vírgulas ou ponto-e-vírgula."""
+    """Parse an ingredient list separated by commas or semicolons."""
     if not text or not isinstance(text, str):
         return []
     
@@ -40,7 +40,7 @@ def parse_ingredient_list(text: str) -> list:
 
 
 def get_ingredient_info(name: str) -> dict:
-    """Busca informações sobre um ingrediente específico."""
+    """Fetch information about a specific ingredient."""
     if not name or not isinstance(name, str):
         return None
     
@@ -82,9 +82,9 @@ def get_ingredient_info(name: str) -> dict:
 
 
 def get_common_ingredient_fallback(name_clean: str) -> dict:
-    """Retorna informações básicas para ingredientes comuns não encontrados no banco."""
+    """Returns basic information for common ingredients not found in the database."""
     
-    # Dicionário de ingredientes comuns com informações básicas
+    # Dictionary of common ingredients with basic information
     common_ingredients = {
         "aqua": {
             "name": "Aqua (Water)",

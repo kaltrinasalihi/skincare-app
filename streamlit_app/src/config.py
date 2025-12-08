@@ -1,8 +1,8 @@
 """
-Configurações centralizadas para o app Through the Label
+Centralized settings for the Through the Label app
 """
 
-# Configurações de página
+# Page settings
 PAGE_CONFIG = {
     "page_title": "Through the Label",
     "page_icon": "🧴",
@@ -10,13 +10,13 @@ PAGE_CONFIG = {
     "initial_sidebar_state": "expanded"
 }
 
-# Paths de dados
+# Data paths
 DATA_PATHS = {
     "ingredients": "data/ingredients_dict.csv",
     "products": "data/products.csv"
 }
 
-# Opções de perfil
+# Profile options
 SKIN_TYPES = ["Oily", "Dry", "Combination", "Normal", "Sensitive"]
 
 AGE_GROUPS = [
@@ -40,35 +40,35 @@ SENSITIVITY_LEVELS = ["Low", "Medium", "High"]
 FRAGRANCE_PREFERENCES = [
     "No preference",
     "Fragrance-free",
-    "Light fragrance OK"
+    "With fragrance"
 ]
 
 CLIMATE_OPTIONS = ["Cold", "Moderate", "Hot"]
 
 SUN_EXPOSURE_OPTIONS = ["Mostly indoors", "Mixed", "Mostly outdoors"]
 
-# Configurações de orçamento
+# Budget settings
 BUDGET_MIN = 5
 BUDGET_MAX = 80
 BUDGET_DEFAULT = 25
 
-# CSS customizado para melhor aparência e responsividade
+# Custom CSS for better appearance and responsiveness
 CUSTOM_CSS = """
 <style>
-    /* Remove padding extra do topo */
+    /* Remove extra top padding */
     .block-container {
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
     
-    /* Melhora cards e containers */
+    /* Improve cards and containers */
     .stExpander {
         border-radius: 8px;
         border: 1px solid #e0e0e0;
         margin-bottom: 0.5rem;
     }
     
-    /* Botões mais bonitos */
+    /* Nicer buttons */
     .stButton > button {
         width: 100%;
         border-radius: 8px;
@@ -82,18 +82,18 @@ CUSTOM_CSS = """
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
-    /* Melhora forms */
+    /* Improve forms */
     .stTextArea textarea, .stTextInput input {
         border-radius: 8px;
     }
     
-    /* Headers com melhor espaçamento */
+    /* Headers with better spacing */
     h1, h2, h3 {
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
     
-    /* Cards de features */
+    /* Feature cards */
     .feature-card {
         padding: 1.5rem;
         border-radius: 12px;
@@ -102,7 +102,7 @@ CUSTOM_CSS = """
         text-align: center;
     }
     
-    /* Responsividade para mobile */
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
         .block-container {
             padding: 1rem;
@@ -114,7 +114,7 @@ CUSTOM_CSS = """
         }
     }
     
-    /* Melhor visualização de JSON */
+    /* Better JSON visualization */
     .stJson {
         background-color: #f8f9fa;
         border-radius: 8px;
