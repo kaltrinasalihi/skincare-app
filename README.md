@@ -86,7 +86,7 @@ The application includes a content-based recommendation engine using a Jaccard-s
 * The user input list is parsed and normalized.
 * Similarity is computed as:
 
-similarity = |intersection| / |union|
+      similarity = |intersection| / |union|
 
 * Products with highest similarity scores are recommended.
 
@@ -96,30 +96,30 @@ This satisfies the machine learning requirement for the course project.
 
 ## 🎯 Alignment With Course Project Requirements
 
-1. **Clearly defined problem**
+1. **Clearly defined problem:**
    Consumers struggle to understand skincare ingredient lists.
 
-2. **Use of data from API/database**
+2. **Use of data from API/database:**
    The app loads structured CSV datasets:
    `ingredients_dict.csv` and `products.csv`.
    We got our datasets from Kaggle, and added an extra column for the brand in the products dataset.
 
-3. **Meaningful data visualizations**
+3. **Meaningful data visualizations:**
    Used across all pages (Plotly): coverage, brand/type distribution, dashboards, gauges.
 
-4. **User interaction**
+4. **User interaction:**
    Includes profile form, ingredient input, search and filter controls, interactive charts.
 
-5. **Machine learning**
+5. **Machine learning:**
    Similarity-based recommendation algorithm.
 
-6. **Documented, well-structured code**
+6. **Documented, well-structured code:**
    Organized into `src/`, `utils/`, `pages/`, with readable logic.
 
-7. **Contribution matrix**
+7. **Contribution matrix:**
    Submitted separately, included in the zip file.
 
-8. **4-minute video presentation**
+8. **4-minute video presentation:**
    Demonstrates full app workflow, submitted separately, included in the zip file.
 
 ---
@@ -136,12 +136,12 @@ No installation, setup, or environment configuration needed.
 
 ---
 
-## Sources
+## 🔗 Sources
    * Product datasets sourced from Kaggle:
          - https://www.kaggle.com/datasets/eward96/skincare-products-and-their-ingredients
    * Ingredient dictionary sourced from Kaggle:
          - https://www.kaggle.com/datasets/amaboh/skin-care-product-ingredients-inci-list
-   * OpenAI ChatGPT was used for guidance, clarification of concepts, and support in refining the project’s code and documentation.
+   * OpenAI ChatGPT was used for guidance, icon creation, clarification of concepts, and support in refining the project’s code and documentation.
 
 ---
 
