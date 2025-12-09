@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/.idea/workspace.xml
+/.idea/
 __pycache__/
 # Editor-based HTTP Client requests
 /httpRequests/
