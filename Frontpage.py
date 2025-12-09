@@ -76,6 +76,3 @@ with info_col3:
 with info_col4:
     if st.button("📊 View Dashboard", use_container_width=True, type="secondary"):
         st.switch_page("pages/4_Dashboard.py")
-
-
-

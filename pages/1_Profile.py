@@ -43,22 +43,39 @@ if st.session_state.get("profile"):
     
     with viz_col1:
         # Gauge para sensibilidade
-        sensitivity_value = {"Low": 33, "Medium": 66, "High": 100}.get(profile.get('sensitivity', 'Medium'), 50)
-        fig_sensitivity = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=sensitivity_value,
-            title={'text': "Skin Sensitivity Level"},
-            gauge={
-                'axis': {'range': [None, 100]},
-                'bar': {'color': "#ef4444"},
-                'steps': [
-                    {'range': [0, 33], 'color': "#d1fae5"},
-                    {'range': [33, 66], 'color': "#fef3c7"},
-                    {'range': [66, 100], 'color': "#fee2e2"}
-                ],
+        level = profile.get('sensitivity', 'Medium')
+        color_map = {
+            "Low": "#ef4444",    # Red
+            "Med": "#facc15",    # Yellow
+            "High": "#22c55e"    # Green
+        }
+        fig_sensitivity = go.Figure()
+        fig_sensitivity.add_annotation(
+            text = level,
+            x = 0.5,
+            y = 0.5,
+            font = {
+                "size": 40,
+                "color": color_map.get(level, "#6b7280")
+            },
+            showarrow = False,
+            xref = "paper",
+            yref = "paper"
+        )
+        fig_sensitivity.update_layout(
+            height = 250,
+            xaxis = {"visible": False},
+            yaxis = {"visible": False},
+            title = {
+                "text": "",
+                "x": 0.5,
+                "xanchor": "center",
+                "subtitle": {
+                    "text": "Skin Sensitivity Level",
+                    "font": {"size": 20, "weight": "normal"}
+                }
             }
-        ))
-        fig_sensitivity.update_layout(height=250)
+        )
         st.plotly_chart(fig_sensitivity, use_container_width=True)
     
     with viz_col2:
@@ -83,25 +100,19 @@ if st.session_state.get("profile"):
     
     # Gráfico de preocupações
     if profile.get('concerns'):
-        concerns_data = {concern: 1 for concern in profile.get('concerns', [])}
-        fig_concerns = go.Figure(data=[
-            go.Bar(
-                x=list(concerns_data.keys()),
-                y=list(concerns_data.values()),
-                marker_color='#8b5cf6',
-                text=list(concerns_data.keys()),
-                textposition='auto',
+        # Create a markdown list of selected concerns
+        concerns_list = "<ul style='list-style: inside;text-align: center'>" +\
+            ''.join([
+                f'<li>{concern}</li>'
+                for concern in profile.get('concerns', [])
+            ]) +\
+            "</ul>"
+
+        if concerns_list:
+            st.html(
+                f'<p style="text-align:center;font-size:20px">Your skin concerns:</p>'
+                f'{concerns_list}'
             )
-        ])
-        fig_concerns.update_layout(
-            title="Your Skin Concerns",
-            xaxis_title="",
-            yaxis_title="Selected",
-            height=300,
-            showlegend=False,
-            yaxis={'visible': False}
-        )
-        st.plotly_chart(fig_concerns, use_container_width=True)
     
     # Recomendações personalizadas baseadas no perfil
     st.divider()
@@ -110,7 +121,7 @@ if st.session_state.get("profile"):
         Based on your skin profile and concerns, we calculate a match score for each product. 
         Each product receives **2 points** for every concern you selected that matches keywords in the product name or type, 
         and **1 extra point** if your skin type is mentioned in the product name. 
-        Products with higher scores are shown first for better personalization.
+        Products with higher scores are shown first for better personalization. Obs: price data may be outdated.
     """)
     
     try:
@@ -173,18 +184,19 @@ if st.session_state.get("profile"):
             if len(top_recommendations) > 0:
                 for idx, (_, product) in enumerate(top_recommendations.iterrows(), 1):
                     with st.container():
-                        col_img, col_info = st.columns([1, 3])
+                        col_img, col_info = st.columns([1, 7])
                         
                         with col_img:
-                            st.markdown(f"### #{idx}")
+                            st.html(f"<h3 style='text-align:center; font-size:1.75rem'>#{idx}</h3>")
                         
                         with col_info:
                             product_name = product.get('product_name', 'Unknown Product')
                             product_type = product.get('product_type', 'N/A')
+                            product_brand = product.get('product_brand', 'N/A')
                             price = product.get('price', 'N/A')
                             
                             st.markdown(f"**{product_name}**")
-                            st.markdown(f"*Type:* {product_type} | *Price:* {price}")
+                            st.markdown(f"*Type:* {product_type} | *Price:* {price} | *Brand*: {product_brand}")
                             
                             # Mostrar por que foi recomendado
                             if 'relevance_score' in product and product['relevance_score'] > 0:
@@ -241,7 +253,7 @@ with st.form("profile_form", clear_on_submit=False):
         sensitivity = st.selectbox(
             "Skin Sensitivity",
             SENSITIVITY_LEVELS,
-            help="How reactive is your skin to new products?"
+            help="How reactive is your skin to new products? (not currenlty used in recommendations)"
         )
         
         fragrance = st.selectbox(
@@ -308,4 +320,3 @@ with col_nav1:
 with col_nav2:
     if st.button("🧴 Browse Products", use_container_width=True):
         st.switch_page("pages/2_Products.py")
-

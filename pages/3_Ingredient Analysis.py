@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from src.config import PAGE_CONFIG, CUSTOM_CSS
 from src.utils import parse_ingredient_list, get_ingredient_info, recommend_products
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Page configuration
 st.set_page_config(**PAGE_CONFIG)
@@ -133,7 +135,6 @@ if analyze_btn:
                 'Count': [found_count, len(not_found)]
             }
             
-            import plotly.express as px
             fig_coverage = px.pie(
                 coverage_data,
                 values='Count',
@@ -156,13 +157,12 @@ if analyze_btn:
                     if info:
                         ingredient_data.append({
                             'Ingredient': info.get('name', ing),
-                            'Category': (info.get('what_is_it', 'N/A')[:40] + '...') if len(info.get('what_is_it', '')) > 40 else info.get('what_is_it', 'N/A'),
-                            'Main Benefit': (info.get('what_does_it_do', 'N/A')[:50] + '...') if len(info.get('what_does_it_do', '')) > 50 else info.get('what_does_it_do', 'N/A'),
-                            'Good For': (info.get('who_is_it_good_for', 'N/A')[:40] + '...') if len(info.get('who_is_it_good_for', '')) > 40 else info.get('who_is_it_good_for', 'N/A')
+                            'Category': (info.get('what_is_it', 'N/A')) if len(info.get('what_is_it', '')) > 40 else info.get('what_is_it', 'N/A'),
+                            'Main Benefit': (info.get('what_does_it_do', 'N/A')) if len(info.get('what_does_it_do', '')) > 50 else info.get('what_does_it_do', 'N/A'),
+                            'Good For': (info.get('who_is_it_good_for', 'N/A')) if len(info.get('who_is_it_good_for', '')) > 40 else info.get('who_is_it_good_for', 'N/A')
                         })
                 
                 if ingredient_data:
-                    import pandas as pd
                     df_ingredients = pd.DataFrame(ingredient_data)
                     st.dataframe(df_ingredients, use_container_width=True, hide_index=True)
             
@@ -178,9 +178,7 @@ if analyze_btn:
                     if len(recs) == 0:
                         st.info("No similar products found in our database.")
                     else:
-                        # Gráfico de similaridade
-                        import plotly.graph_objects as go
-                        
+                        # Gráfico de similaridade                        
                         fig_similarity = go.Figure(data=[
                             go.Bar(
                                 x=recs['product_name'],

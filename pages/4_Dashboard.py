@@ -7,6 +7,7 @@ from src.config import PAGE_CONFIG, CUSTOM_CSS, DATA_PATHS
 from src.utils import load_products
 from src.utils.ingredient_utils import load_ingredient_data
 import ast
+import numpy as np
 
 # Page configuration
 st.set_page_config(**PAGE_CONFIG)
@@ -37,8 +38,8 @@ with kpi_col2:
     st.metric("Ingredients Database", f"{total_ingredients:,}")
 
 with kpi_col3:
-    if not products_df.empty and 'brand_name' in products_df.columns:
-        total_brands = products_df['brand_name'].nunique()
+    if not products_df.empty and 'product_brand' in products_df.columns:
+        total_brands = products_df['product_brand'].nunique()
         st.metric("Unique Brands", f"{total_brands:,}")
     else:
         st.metric("Unique Brands", "N/A")
@@ -100,17 +101,17 @@ with tab1:
                 st.plotly_chart(fig_pie, use_container_width=True)
         
         # Treemap de produtos por marca e tipo
-        if 'brand_name' in products_df.columns and 'product_type' in products_df.columns:
+        if 'product_brand' in products_df.columns and 'product_type' in products_df.columns:
             st.markdown("### Product Hierarchy")
             
             # Preparar dados para treemap
-            brand_type_counts = products_df.groupby(['brand_name', 'product_type']).size().reset_index(name='count')
-            top_brands = products_df['brand_name'].value_counts().head(10).index
-            filtered_data = brand_type_counts[brand_type_counts['brand_name'].isin(top_brands)]
+            brand_type_counts = products_df.groupby(['product_brand', 'product_type']).size().reset_index(name='count')
+            top_brands = products_df['product_brand'].value_counts().head(10).index
+            filtered_data = brand_type_counts[brand_type_counts['product_brand'].isin(top_brands)]
             
             fig_tree = px.treemap(
                 filtered_data,
-                path=['brand_name', 'product_type'],
+                path=['product_brand', 'product_type'],
                 values='count',
                 title='Product Distribution by Brand and Type (Top 10 Brands)',
                 color='count',
@@ -184,8 +185,8 @@ with tab2:
 with tab3:
     st.markdown("### Brand Insights")
     
-    if not products_df.empty and 'brand_name' in products_df.columns:
-        brand_counts = products_df['brand_name'].value_counts()
+    if not products_df.empty and 'product_brand' in products_df.columns:
+        brand_counts = products_df['product_brand'].value_counts()
         
         col1, col2 = st.columns(2)
         
@@ -224,13 +225,13 @@ with tab3:
         if 'product_type' in products_df.columns:
             st.markdown("### Brand-Product Relationship")
             
-            brand_type = products_df.groupby(['brand_name', 'product_type']).size().reset_index(name='count')
+            brand_type = products_df.groupby(['product_brand', 'product_type']).size().reset_index(name='count')
             top_brands_list = brand_counts.head(15).index
-            filtered_bt = brand_type[brand_type['brand_name'].isin(top_brands_list)]
+            filtered_bt = brand_type[brand_type['product_brand'].isin(top_brands_list)]
             
             fig_sun = px.sunburst(
                 filtered_bt,
-                path=['brand_name', 'product_type'],
+                path=['product_brand', 'product_type'],
                 values='count',
                 title='Product Categories by Brand (Top 15 Brands)',
                 color='count',
@@ -276,8 +277,7 @@ with tab4:
         st.markdown("#### 📈 Growth Simulation")
         
         # Criar dados simulados de crescimento
-        import numpy as np
-        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+        months = ['Sep/25', 'Oct/25', 'Nov/25', 'Dec/25', 'Jan/26', 'Feb/26']
         products_growth = [total_products * (1 + i*0.05) for i in range(6)]
         ingredients_growth = [total_ingredients * (1 + i*0.03) for i in range(6)]
         
@@ -330,7 +330,7 @@ with tab4:
             st.plotly_chart(fig_diversity, use_container_width=True)
     
     with insight_col2:
-        if not products_df.empty and 'brand_name' in products_df.columns:
+        if not products_df.empty and 'product_brand' in products_df.columns:
             brand_concentration = (brand_counts.head(5).sum() / brand_counts.sum()) * 100
             fig_concentration = go.Figure(go.Indicator(
                 mode="gauge+number",

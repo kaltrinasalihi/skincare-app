@@ -39,6 +39,30 @@ def parse_ingredient_list(text: str) -> list:
     return ingredients
 
 
+def parse_who_list(items_raw: str) -> list:
+    """Parse an ingredient list separated by commas or semicolons."""
+    if isinstance(items_raw, str):
+        try:
+            # Parse string representation of list, e.g. "['A', 'B']"
+            items_raw = eval(items_raw)
+        except Exception:
+            items_raw = []
+    elif not isinstance(items_raw, list):
+        items_raw = []
+    
+    if len(items_raw) > 0:
+        items_text = "People with: " + ", ".join([
+            w.lower()
+            for w in items_raw
+            if w != ' '
+        ]) + "."
+        items_text = re.sub(r'(.+), ([^,]+)$', r'\1 and \2', items_text)
+    else:
+        items_text = "No info."
+    
+    return items_text
+
+
 def get_ingredient_info(name: str) -> dict:
     """Fetch information about a specific ingredient."""
     if not name or not isinstance(name, str):
@@ -75,8 +99,8 @@ def get_ingredient_info(name: str) -> dict:
         "short_description": row.get("short_description", ""),
         "what_is_it": row.get("what_is_it", ""),
         "what_does_it_do": row.get("what_does_it_do", ""),
-        "who_is_it_good_for": row.get("who_is_it_good_for", ""),
-        "who_should_avoid": row.get("who_should_avoid", ""),
+        "who_is_it_good_for": parse_who_list(row.get("who_is_it_good_for", "")),
+        "who_should_avoid": parse_who_list(row.get("who_should_avoid", "")),
         "url": row.get("url", "")
     }
 

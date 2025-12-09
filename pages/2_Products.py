@@ -41,8 +41,8 @@ with col2:
         st.metric("Product Types", "N/A")
 
 with col3:
-    if 'brand_name' in df.columns:
-        st.metric("Brands", df['brand_name'].nunique())
+    if 'product_brand' in df.columns:
+        st.metric("Brands", df['product_brand'].nunique())
     else:
         st.metric("Brands", "N/A")
 
@@ -83,8 +83,8 @@ with tab1:
         st.info("Product type data not available")
 
 with tab2:
-    if 'brand_name' in df.columns:
-        brand_counts = df['brand_name'].value_counts().head(15)
+    if 'product_brand' in df.columns:
+        brand_counts = df['product_brand'].value_counts().head(15)
         
         fig_brands = px.bar(
             x=brand_counts.index,
@@ -108,6 +108,7 @@ with tab2:
             values=brand_counts.values,
             title="Brand Distribution (Treemap)"
         )
+        fig_tree.data[0].textinfo = 'label+value+percent entry'
         fig_tree.update_layout(height=500)
         st.plotly_chart(fig_tree, use_container_width=True)
     else:
@@ -124,7 +125,7 @@ st.divider()
 
 # Filters
 st.markdown("### 🔍 Filter Products")
-filter_col1, filter_col2 = st.columns(2)
+filter_col1, filter_col2, filter_col3 = st.columns(3)
 
 with filter_col1:
     # Filter by product type
@@ -136,11 +137,26 @@ with filter_col1:
 
 with filter_col2:
     # Filter by brand
-    if 'brand_name' in df.columns:
-        brands = ['All'] + sorted(df['brand_name'].dropna().unique().tolist())
+    if 'product_brand' in df.columns:
+        brands = ['All'] + sorted(df['product_brand'].dropna().unique().tolist())
         selected_brand = st.selectbox("Brand", brands)
     else:
         selected_brand = 'All'
+
+with filter_col3:
+    # Filter by price
+    if 'price' in df.columns:
+        prices = df['price'].dropna().apply(lambda x: float(x.replace("£", ""))).unique()
+        min_price = min(prices)
+        max_price = max(prices)
+        selected_price_range = st.slider(
+            "Price Range",
+            min_value = min_price,
+            max_value = max_price,
+            value = (min_price, max_price)
+        )
+    else:
+        selected_price_range = (min_price, max_price)
 
 # Search by name
 search_query = st.text_input("🔎 Search by product name", placeholder="Enter product name...")
@@ -151,8 +167,14 @@ filtered_df = df.copy()
 if selected_type != 'All' and 'product_type' in df.columns:
     filtered_df = filtered_df[filtered_df['product_type'] == selected_type]
 
-if selected_brand != 'All' and 'brand_name' in df.columns:
-    filtered_df = filtered_df[filtered_df['brand_name'] == selected_brand]
+if selected_brand != 'All' and 'product_brand' in df.columns:
+    filtered_df = filtered_df[filtered_df['product_brand'] == selected_brand]
+
+if selected_price_range != (min_price, max_price) and 'price' in df.columns:
+    prices = filtered_df['price'].apply(lambda x: float(x.replace("£", "")))
+    filtered_df = filtered_df[
+        (prices >= selected_price_range[0]) & (prices <= selected_price_range[1])
+    ]
 
 if search_query and 'product_name' in df.columns:
     filtered_df = filtered_df[filtered_df['product_name'].str.contains(search_query, case=False, na=False)]
@@ -171,7 +193,7 @@ if len(filtered_df) == 0:
 else:
     if view_mode == "Table View":
         # Table view
-        display_cols = [col for col in ['product_name', 'brand_name', 'product_type', 'product_url'] if col in filtered_df.columns]
+        display_cols = [col for col in ['product_name', 'product_brand', 'product_type', 'product_url'] if col in filtered_df.columns]
         st.dataframe(
             filtered_df[display_cols].head(50),
             use_container_width=True,
@@ -185,11 +207,11 @@ else:
                 
                 with col_a:
                     product_name = row.get('product_name', 'Unknown Product')
-                    brand_name = row.get('brand_name', 'Unknown Brand')
+                    product_brand = row.get('product_brand', 'Unknown Brand')
                     product_type = row.get('product_type', 'N/A')
                     
                     st.markdown(f"**{product_name}**")
-                    st.caption(f"Brand: {brand_name} | Type: {product_type}")
+                    st.caption(f"Brand: {product_brand} | Type: {product_type}")
                 
                 with col_b:
                     if 'product_url' in row and pd.notna(row['product_url']):
