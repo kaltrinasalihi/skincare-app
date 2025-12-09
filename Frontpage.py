@@ -1,17 +1,17 @@
 import streamlit as st
 from src.config import PAGE_CONFIG, CUSTOM_CSS
 
-# Configuração da página
+# Page configuration
 st.set_page_config(**PAGE_CONFIG)
 
-# Aplicar CSS customizado
+# Apply custom CSS
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 # Hero Section
 st.title("Through the Label 🧴✨")
 st.caption("Make data-driven skincare choices")
 
-# Introdução
+# Introduction
 col1, col2 = st.columns([3, 2], gap="large")
 with col1:
     st.markdown("### Your customized skincare companion 💧")
@@ -21,7 +21,7 @@ with col1:
     )
     st.write("")
     
-    # Botões de ação principais
+    # Main action buttons
     btn_col1, btn_col2 = st.columns(2)
     with btn_col1:
         if st.button("🧬 Create Your Profile", use_container_width=True):
@@ -60,7 +60,7 @@ with feature_col3:
 
 st.divider()
 
-# Footer com informações adicionais
+# Footer with additional information
 st.markdown("### 📊 Why Trust Our Analysis?")
 info_col1, info_col2, info_col3, info_col4 = st.columns(4)
 

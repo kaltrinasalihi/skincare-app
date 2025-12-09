@@ -35,14 +35,14 @@ if st.session_state.get("profile"):
             st.markdown(f"**Climate:** {profile.get('climate', 'N/A')}")
             st.markdown(f"**Sun Exposure:** {profile.get('sun', 'N/A')}")
     
-    # Visualização do perfil
+    # Profile visualization
     st.divider()
     st.markdown("### 📊 Profile Visualization")
     
     viz_col1, viz_col2 = st.columns(2)
     
     with viz_col1:
-        # Gauge para sensibilidade
+        # Gauge for sensitivity
         level = profile.get('sensitivity', 'Medium')
         color_map = {
             "Low": "#ef4444",    # Red
@@ -79,7 +79,7 @@ if st.session_state.get("profile"):
         st.plotly_chart(fig_sensitivity, use_container_width=True)
     
     with viz_col2:
-        # Gauge para budget
+        # Gauge for budget
         budget_percentage = (profile.get('budget', BUDGET_DEFAULT) / BUDGET_MAX) * 100
         fig_budget = go.Figure(go.Indicator(
             mode="gauge+number",
@@ -98,7 +98,7 @@ if st.session_state.get("profile"):
         fig_budget.update_layout(height=250)
         st.plotly_chart(fig_budget, use_container_width=True)
     
-    # Gráfico de preocupações
+    # Concerns chart
     if profile.get('concerns'):
         # Create a markdown list of selected concerns
         concerns_list = "<ul style='list-style: inside;text-align: center'>" +\
@@ -114,7 +114,7 @@ if st.session_state.get("profile"):
                 f'{concerns_list}'
             )
     
-    # Recomendações personalizadas baseadas no perfil
+    # Personalized recommendations based on profile
     st.divider()
     st.markdown("### 🎯 Personalized Product Recommendations")
     st.markdown("""
@@ -125,32 +125,32 @@ if st.session_state.get("profile"):
     """)
     
     try:
-        # Carregar produtos
+        # Load products
         df_products = load_products(DATA_PATHS["products"])
         
         if not df_products.empty:
-            # Filtrar produtos baseado no perfil
+            # Filter products based on profile
             filtered_products = df_products.copy()
             
-            # Filtrar por tipo de pele (se houver coluna relevante)
+            # Filter by skin type (if relevant column exists)
             skin_type = profile.get('skin_type', '').lower()
             concerns = [c.lower() for c in profile.get('concerns', [])]
             budget = profile.get('budget', BUDGET_DEFAULT)
             
-            # Filtrar por orçamento
+            # Filter by budget
             if 'price' in filtered_products.columns:
-                # Converter preços para numérico
+                # Convert prices to numeric
                 filtered_products['price_numeric'] = filtered_products['price'].str.replace('£', '').str.replace(',', '').astype(float)
                 filtered_products = filtered_products[filtered_products['price_numeric'] <= budget]
             
-            # Pontuação baseada nas preocupações
+            # Scoring based on concerns
             if concerns and 'product_name' in filtered_products.columns:
                 def score_product(row):
                     score = 0
                     product_name = str(row.get('product_name', '')).lower()
                     product_type = str(row.get('product_type', '')).lower()
                     
-                    # Palavras-chave para cada preocupação
+                    # Keywords for each concern
                     concern_keywords = {
                         'acne': ['acne', 'salicylic', 'bha', 'clarifying', 'purifying'],
                         'aging': ['anti-aging', 'retinol', 'peptide', 'collagen', 'wrinkle'],
@@ -169,7 +169,7 @@ if st.session_state.get("profile"):
                             if keyword in product_name or keyword in product_type:
                                 score += 2
                     
-                    # Bonus para tipo de pele
+                    # Bonus for skin type
                     if skin_type and skin_type in product_name:
                         score += 1
                     
@@ -178,7 +178,7 @@ if st.session_state.get("profile"):
                 filtered_products['relevance_score'] = filtered_products.apply(score_product, axis=1)
                 filtered_products = filtered_products.sort_values('relevance_score', ascending=False)
             
-            # Mostrar top 5 recomendações
+            # Show top 5 recommendations
             top_recommendations = filtered_products.head(5)
             
             if len(top_recommendations) > 0:
@@ -198,7 +198,7 @@ if st.session_state.get("profile"):
                             st.markdown(f"**{product_name}**")
                             st.markdown(f"*Type:* {product_type} | *Price:* {price} | *Brand*: {product_brand}")
                             
-                            # Mostrar por que foi recomendado
+                            # Show why it was recommended
                             if 'relevance_score' in product and product['relevance_score'] > 0:
                                 st.markdown(f"✨ *Match score:* {int(product['relevance_score'])} points")
                             

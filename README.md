@@ -36,6 +36,7 @@ Built as part of the *Fundamentals and Methods of Computer Science for Business 
   * who it is good for
   * who should avoid it
   * an external link for further reading
+
 * Unknown ingredients are clearly highlighted.
 * Coverage charts summarize how many ingredients were recognized.
 * Ingredient-based similarity is used to recommend matching products.
@@ -101,6 +102,7 @@ This satisfies the machine learning requirement for the course project.
 2. **Use of data from API/database**
    The app loads structured CSV datasets:
    `ingredients_dict.csv` and `products.csv`.
+   We got our datasets from Kaggle, and added an extra column for the brand in the products dataset.
 
 3. **Meaningful data visualizations**
    Used across all pages (Plotly): coverage, brand/type distribution, dashboards, gauges.
@@ -115,10 +117,10 @@ This satisfies the machine learning requirement for the course project.
    Organized into `src/`, `utils/`, `pages/`, with readable logic.
 
 7. **Contribution matrix**
-   Submitted separately.
+   Submitted separately, included in the zip file.
 
 8. **4-minute video presentation**
-   Demonstrates full app workflow.
+   Demonstrates full app workflow, submitted separately, included in the zip file.
 
 ---
 
@@ -134,9 +136,12 @@ No installation, setup, or environment configuration needed.
 
 ---
 
-## 📄 License
-
-This is an academic project for educational purposes.
+## Sources
+   * Product datasets sourced from Kaggle:
+         - https://www.kaggle.com/datasets/eward96/skincare-products-and-their-ingredients
+   * Ingredient dictionary sourced from Kaggle:
+         - https://www.kaggle.com/datasets/amaboh/skin-care-product-ingredients-inci-list
+   * OpenAI ChatGPT was used for guidance, clarification of concepts, and support in refining the project’s code and documentation.
 
 ---
 
@@ -153,4 +158,3 @@ GitHub Profiles:
 ---
 
 Made with ❤️ by the Through the Label Team
-

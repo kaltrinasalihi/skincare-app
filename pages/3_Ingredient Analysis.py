@@ -116,7 +116,7 @@ if analyze_btn:
                     st.write("The following ingredients were not found in our database:")
                     st.write(", ".join(not_found))
             
-            # Métricas
+            # Metrics
             st.divider()
             st.markdown("### 📈 Analysis Summary")
             
@@ -129,7 +129,7 @@ if analyze_btn:
                 coverage = (found_count/len(ingredients)*100) if len(ingredients) > 0 else 0
                 st.metric("Coverage", f"{coverage:.0f}%")
             
-            # Gráfico de cobertura
+            # Coverage pie chart
             coverage_data = {
                 'Category': ['Found in Database', 'Not Found'],
                 'Count': [found_count, len(not_found)]
@@ -147,7 +147,7 @@ if analyze_btn:
             fig_coverage.update_layout(height=400)
             st.plotly_chart(fig_coverage, use_container_width=True)
             
-            # Tabela comparativa de ingredientes encontrados
+            # Comparison table 
             if found_count > 0:
                 st.markdown("### 📋 Ingredient Comparison Table")
                 
@@ -178,7 +178,7 @@ if analyze_btn:
                     if len(recs) == 0:
                         st.info("No similar products found in our database.")
                     else:
-                        # Gráfico de similaridade                        
+                        # Similarity bar chart                      
                         fig_similarity = go.Figure(data=[
                             go.Bar(
                                 x=recs['product_name'],
@@ -198,7 +198,7 @@ if analyze_btn:
                         )
                         st.plotly_chart(fig_similarity, use_container_width=True)
                         
-                        # Lista de produtos
+                        # Product list
                         st.markdown("#### Product Details")
                         for idx, row in recs.iterrows():
                             with st.container():

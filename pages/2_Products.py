@@ -49,7 +49,7 @@ with col3:
 with col4:
     st.metric("Categories", "Multiple")
 
-# Visualizações do banco de dados
+# Data base visualizations
 st.divider()
 st.markdown("### 📈 Product Analytics")
 
