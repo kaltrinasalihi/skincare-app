@@ -57,7 +57,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "📦 Products Overview",
     "🧪 Ingredients Insights",
     "🏢 Brand Analysis",
-    "📈 Advanced Analytics"
+    "📈 Meta Analytics"
 ])
 
 # TAB 1: Products Overview
@@ -177,24 +177,6 @@ with tab2:
                     'Frequency': top_ingredients.head(10).values
                 })
                 st.dataframe(top_10_df, use_container_width=True, hide_index=True)
-            
-            # Wordcloud alternativo - bubble chart
-            st.markdown("### Ingredient Frequency Visualization")
-            top_30 = ingredient_counts.head(30)
-            
-            fig_bubble = px.scatter(
-                x=range(len(top_30)),
-                y=top_30.values,
-                size=top_30.values,
-                text=top_30.index,
-                title="Top 30 Ingredients Bubble Chart",
-                labels={'x': '', 'y': 'Frequency'},
-                color=top_30.values,
-                color_continuous_scale='Viridis'
-            )
-            fig_bubble.update_traces(textposition='top center')
-            fig_bubble.update_layout(height=500, showlegend=False, xaxis={'visible': False})
-            st.plotly_chart(fig_bubble, use_container_width=True)
     else:
         st.info("No ingredient data available")
 
@@ -259,7 +241,7 @@ with tab3:
     else:
         st.info("No brand data available")
 
-# TAB 4: Advanced Analytics
+# TAB 4: Meta Analytics
 with tab4:
     st.markdown("### Advanced Statistics")
     

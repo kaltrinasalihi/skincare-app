@@ -1,137 +1,156 @@
 # Through the Label 🧴✨
 
 A modern skincare analysis application that helps users make data-driven decisions about their skincare products.
-
-## 🌟 Features
-
-### 🧬 Personal Profile
-- Create a detailed skin profile with your skin type, concerns, and preferences
-- Set your budget and environmental factors
-- Get personalized recommendations based on your profile
-- **Visual gauges** showing sensitivity levels and budget allocation
-
-### 🔍 Ingredient Analysis
-- Paste any product's ingredient list (INCI format)
-- Get detailed information about each ingredient
-- Understand what ingredients do and who they're good for
-- Discover products with similar ingredient profiles
-- **Interactive charts** showing ingredient coverage and comparison tables
-- **Similarity graphs** for product recommendations
-
-### 🧴 Product Discovery
-- Browse a curated database of skincare products
-- Filter by product type, brand, or name
-- View detailed product information
-- Get match scores based on ingredient similarity
-- **Bar charts and pie charts** for product type distribution
-- **Treemap visualization** for brand and product hierarchy
-
-### 📊 Dashboard & Analytics
-- Comprehensive overview of the entire database
-- **KPI metrics** for products, ingredients, brands, and categories
-- **Interactive visualizations** including:
-  - Product distribution charts
-  - Top ingredients frequency analysis
-  - Brand market share analysis
-  - Database completeness indicators
-  - Growth projections
-- **Gauge charts** for diversity and concentration scores
-
-## 🚀 Quick Start
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/kaltrinasalihi/skincare-app.git
-cd skincare-app
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the application:
-```bash
-streamlit run Frontpage.py
-```
-
-The app will open automatically in your browser at `http://localhost:8501`
-
-## 📁 Project Structure
-
-```
-skincare-app/
-├── Frontpage.py              # Main landing page
-├── requirements.txt          # Python dependencies
-├── README.md                 # Project documentation
-├── src/
-│   ├── __init__.py           # Package initialization
-│   ├── config.py             # Centralized configuration and styling
-│   └── utils/
-│       ├── __init__.py       # Utils package initialization
-│       ├── ingredient_utils.py # Ingredient analysis utilities
-│       └── product_utils.py  # Product recommendation utilities
-├── data/
-│   ├── ingredients_dict.csv  # Ingredient database
-│   └── products.csv          # Product catalog
-├── pages/
-    ├── 1_Profile.py          # User profile page
-    ├── 2_Products.py         # Product browsing page
-    ├── 3_IngredientAnalysis.py # Ingredient analysis page
-    └── 4_Dashboard.py        # Analytics dashboard
-```
-
-## 🛠️ Technologies
-
-- **Python 3.8+**
-- **Streamlit** - Web application framework
-- **Pandas** - Data manipulation and analysis
-- **Plotly** - Interactive visualizations and charts
-- **NumPy** - Numerical computations
-
-## 👥 Team
-
-- Luana Brugger
-- Sara Penha
-- Michele Natali
-- Kaltrina Salihi
-
-## 📝 How to Use
-
-1. **Create Your Profile** - Start by setting up your skin profile with your type, concerns, and preferences
-2. **Analyze Ingredients** - Paste ingredient lists from products you're interested in
-3. **Discover Products** - Browse the catalog and find products that match your needs
-
-## 🎨 Recent Improvements
-
-- ✅ Centralized configuration for easier maintenance
-- ✅ Responsive design with custom CSS
-- ✅ Performance optimization with data caching
-- ✅ Improved user interface and navigation
-- ✅ Better error handling and user feedback
-- ✅ Enhanced product filtering and search
-- ✅ **Interactive visualizations with Plotly**
-- ✅ **Comprehensive analytics dashboard**
-- ✅ **Gauge charts for profile metrics**
-- ✅ **Dynamic charts and graphs across all pages**
-- ✅ **Data tables with comparison features**
-
-## 📄 License
-
-This project is part of an academic project.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+Built as part of the *Fundamentals and Methods of Computer Science for Business Studies* course.
 
 ---
 
-Made with ❤️ by the Through the Label team
+## 🌟 Main Features
+
+### 🧬 Personal Profile
+
+* Create a skin profile with:
+
+  * skin type
+  * age group
+  * main concerns
+  * sensitivity level
+  * fragrance preference
+  * budget
+  * climate
+  * sun exposure
+* Profile data is stored securely in the Streamlit session state.
+* The app provides simple product suggestions aligned with the user’s profile.
+* Gauge charts help visualize sensitivity and budget positioning.
+
+---
+
+### 🔍 Ingredient Analysis
+
+* Paste an INCI ingredient list directly into the app.
+* The app parses and compares the list to the ingredient database.
+* For each recognized ingredient, the app displays:
+
+  * what it is
+  * what it does
+  * who it is good for
+  * who should avoid it
+  * an external link for further reading
+* Unknown ingredients are clearly highlighted.
+* Coverage charts summarize how many ingredients were recognized.
+* Ingredient-based similarity is used to recommend matching products.
+
+---
+
+### 🧴 Product Discovery
+
+* Browse a curated skincare product catalog.
+* Filter by:
+
+  * product type
+  * brand
+  * keyword search
+* View product fields (name, type, brand, URL, ingredient list).
+* Interactive charts show:
+
+  * product type distribution
+  * brand distribution
+  * combined category breakdowns
+
+---
+
+### 📊 Dashboard & Analytics
+
+* Overview metrics:
+
+  * total products
+  * total ingredients
+  * number of brands
+  * number of categories
+* Interactive visualizations:
+
+  * sunburst charts
+  * bar charts
+  * ingredient frequency analysis
+
+---
+
+## 🧠 Recommendation Algorithm (Machine Learning Component)
+
+The application includes a content-based recommendation engine using a Jaccard-style similarity score.
+
+**How it works:**
+
+* Each product contains a cleaned list of ingredients.
+* The user input list is parsed and normalized.
+* Similarity is computed as:
+
+similarity = |intersection| / |union|
+
+* Products with highest similarity scores are recommended.
+
+This satisfies the machine learning requirement for the course project.
+
+---
+
+## 🎯 Alignment With Course Project Requirements
+
+1. **Clearly defined problem**
+   Consumers struggle to understand skincare ingredient lists.
+
+2. **Use of data from API/database**
+   The app loads structured CSV datasets:
+   `ingredients_dict.csv` and `products.csv`.
+
+3. **Meaningful data visualizations**
+   Used across all pages (Plotly): coverage, brand/type distribution, dashboards, gauges.
+
+4. **User interaction**
+   Includes profile form, ingredient input, search and filter controls, interactive charts.
+
+5. **Machine learning**
+   Similarity-based recommendation algorithm.
+
+6. **Documented, well-structured code**
+   Organized into `src/`, `utils/`, `pages/`, with readable logic.
+
+7. **Contribution matrix**
+   Submitted separately.
+
+8. **4-minute video presentation**
+   Demonstrates full app workflow.
+
+---
+
+## 🚀 How to Run the App
+
+**Run Online (Recommended)**
+
+_You can access the full application instantly through the Streamlit Cloud deployment:_
+
+👉 https://through-the-label2-skkghigrpguryawgzskbuq.streamlit.app/
+
+No installation, setup, or environment configuration needed.
+
+---
+
+## 📄 License
+
+This is an academic project for educational purposes.
+
+---
+
+## 👩‍💻 Team
+
+GitHub Profiles:
+
+* [Kaltrina Salihi](https://github.com/kaltrinasalihi)
+* [Luana Borma Brugger](https://github.com/luana-brugger)
+* [Michele Natali](https://github.com/MikHUBjk)
+* [Sara Penha dos Santos](https://github.com/saraapenha)
 
 
+---
 
-
-
+Made with ❤️ by the Through the Label Team
 
