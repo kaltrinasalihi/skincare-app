@@ -141,7 +141,7 @@ No installation, setup, or environment configuration needed.
          - https://www.kaggle.com/datasets/eward96/skincare-products-and-their-ingredients
    * Ingredient dictionary sourced from Kaggle:
          - https://www.kaggle.com/datasets/amaboh/skin-care-product-ingredients-inci-list
-   * OpenAI ChatGPT was used for guidance, icon creation, clarification of concepts, and support in refining the project’s code and documentation.
+   * OpenAI ChatGPT was used for as an aid for  guidance, icon creation, clarification of concepts, and support in refining the project’s code and documentation.
 
 ---
 
