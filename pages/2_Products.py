@@ -229,4 +229,4 @@ with col_nav1:
 
 with col_nav2:
     if st.button("🔍 Analyze Ingredients", use_container_width=True):
-        st.switch_page("pages/3_IngredientAnalysis.py")
+        st.switch_page("pages/3_Ingredient Analysis.py")

@@ -28,7 +28,7 @@ with col1:
             st.switch_page("pages/1_Profile.py")
     with btn_col2:
         if st.button("🔍 Analyze Ingredients", use_container_width=True):
-            st.switch_page("pages/3_IngredientAnalysis.py")
+            st.switch_page("pages/3_Ingredient Analysis.py")
 
 with col2:
     st.info("💡 **Quick Start**\n\n1. Create your profile\n2. Analyze product ingredients\n3. Get personalized recommendations")
@@ -50,7 +50,7 @@ with feature_col2:
     st.markdown("### 🔍 Ingredient Analysis")
     st.write("Paste any ingredient list and discover what each component does for your skin.")
     if st.button("Analyze Now →", key="feature_analysis", use_container_width=True):
-        st.switch_page("pages/3_IngredientAnalysis.py")
+        st.switch_page("pages/3_Ingredient Analysis.py")
 
 with feature_col3:
     st.markdown("### 🧴 Product Discovery")

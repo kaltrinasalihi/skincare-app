@@ -315,7 +315,7 @@ col_nav1, col_nav2 = st.columns(2)
 
 with col_nav1:
     if st.button("🔍 Analyze Ingredients", use_container_width=True):
-        st.switch_page("pages/3_IngredientAnalysis.py")
+        st.switch_page("pages/3_Ingredient Analysis.py")
 
 with col_nav2:
     if st.button("🧴 Browse Products", use_container_width=True):
