@@ -130,7 +130,7 @@ This satisfies the machine learning requirement for the course project.
 
 _You can access the full application instantly through the Streamlit Cloud deployment:_
 
-👉 https://through-the-label2-skkghigrpguryawgzskbuq.streamlit.app/
+👉 https://through-the-label.streamlit.app/
 
 No installation, setup, or environment configuration needed.
 
